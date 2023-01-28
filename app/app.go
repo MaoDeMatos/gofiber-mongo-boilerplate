@@ -2,9 +2,12 @@ package app
 
 import (
 	"hi-gofiber/config"
+	"hi-gofiber/middleware"
+	"hi-gofiber/router"
+	"hi-gofiber/types"
 
 	"github.com/gofiber/fiber/v2"
-	"github.com/gofiber/fiber/v2/middleware/cache"
+	// "github.com/gofiber/fiber/v2/middleware/cache"
 	"github.com/gofiber/fiber/v2/middleware/compress"
 	"github.com/gofiber/fiber/v2/middleware/cors"
 	"github.com/gofiber/fiber/v2/middleware/favicon"
@@ -13,22 +16,24 @@ import (
 )
 
 func setup() *fiber.App {
-	app := fiber.New()
+	app := fiber.New(fiber.Config{
+		Prefork:      config.Current.Multithreading, // Mutlithreading
+		ErrorHandler: middleware.CustomErrorHandler,
+	})
 
 	// Order of the middlewares is important !
 	app.Use(favicon.New())
 	app.Use(logger.New())
-	app.Use(func(c *fiber.Ctx) (r error) {
-		c.Accepts("application/json")
-		return c.Next()
+
+	app.Use(func(ctx *fiber.Ctx) (r error) {
+		ctx.Accepts("application/json")
+		return ctx.Next()
 	})
-
-	app.Use(cache.New())
-
 	app.Use(helmet.New())
 	app.Use(cors.New())
 
 	app.Use(compress.New())
+	// app.Use(cache.New())
 
 	return app
 }
@@ -36,9 +41,21 @@ func setup() *fiber.App {
 func Start() {
 	app := setup()
 
-	app.Get("/ping", func(c *fiber.Ctx) error {
-		return c.JSON(fiber.Map{"response": "Pong !"})
+	app.Get("/status", func(ctx *fiber.Ctx) error {
+		return ctx.JSON(types.ApiResponse{"response": "I'm online !"})
 	})
+
+	app.Get("/error", func(ctx *fiber.Ctx) error {
+		var err *fiber.Error = &fiber.Error{Code: fiber.StatusTeapot, Message: "I'm a teapot !"}
+		return err
+		// return fiber.ErrBadRequest
+	})
+
+	v1 := app.Group("/v1", func(ctx *fiber.Ctx) error {
+		ctx.Set("Version", "v1")
+		return ctx.Next()
+	})
+	router.AddDelayedRoutes(v1)
 
 	app.Listen(config.Current.Port)
 }
