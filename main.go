@@ -1,15 +1,13 @@
 package main
 
 import (
-	"github.com/gofiber/fiber/v2"
+	"hi-gofiber/app"
+	_ "hi-gofiber/config"
+
+	// Autoload `.env`
+	_ "github.com/joho/godotenv/autoload"
 )
 
 func main() {
-	app := fiber.New()
-
-	app.Get("/", func(c *fiber.Ctx) error {
-		return c.JSON(fiber.Map{"response": "Hello, World 👋!"})
-	})
-
-	app.Listen(":8080")
+	app.Start()
 }

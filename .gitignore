@@ -26,4 +26,9 @@ go.work
 .DS_Store
 .idea
 
+# Env files
+*.env*
+!*.env*.sample
+!*.env*.example
+
 tmp
