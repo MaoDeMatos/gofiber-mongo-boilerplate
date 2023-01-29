@@ -1,4 +1,4 @@
-package router
+package delayed
 
 import (
 	"fmt"
@@ -10,7 +10,7 @@ import (
 	"github.com/gofiber/fiber/v2"
 )
 
-func AddDelayedRoutes(r fiber.Router) {
+func CreateRoutes(r fiber.Router) {
 	delayed := r.Group("/delay")
 
 	delayed.Get("/:delay<int>?", func(ctx *fiber.Ctx) error {

@@ -6,23 +6,23 @@ import (
 )
 
 type CustomConfig struct {
-	Port           string
-	Multithreading bool
+	PORT           string
+	MULTITHREADING bool
 }
 
 var Current = CustomConfig{
-	Port:           ":8080",
-	Multithreading: false,
+	PORT:           "8080",
+	MULTITHREADING: false,
 }
 
 func Init() {
 	if port := os.Getenv("PORT"); len(port) > 0 {
-		Current.Port = ":" + port
+		Current.PORT = port
 	}
 
 	if useMultipleThreads := os.Getenv("USE_MULTIPLE_THREADS"); len(useMultipleThreads) > 0 {
 		if strings.ToLower(useMultipleThreads) == "true" {
-			Current.Multithreading = true
+			Current.MULTITHREADING = true
 		}
 	}
 }

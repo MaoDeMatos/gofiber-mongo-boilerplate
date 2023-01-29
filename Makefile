@@ -12,16 +12,17 @@ dev: ## Run in Development mode
 
 .PHONY: build
 build: ## Build for Production
-	go build -o ./bin/main .
+	go build -o ./tmp/main ./cmd/api
 
 .PHONY: start
 start: ## Run Production build
-	./bin/main
+	./tmp/main
 
 .PHONY: clear
 clear: ## Clear generated files
-	rm -rf bin/ && rm -rf tmp/
+	rm -rf tmp/
 
+# Self-Documenting part
 .PHONY: help
 .DEFAULT_GOAL := help
 help:

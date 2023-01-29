@@ -16,21 +16,4 @@ Just run `make` of `make help` to see what commands you can use.
 
 ## Manual
 
-You should use the makefile
-
-### Install
-
-```sh
-go mod download                             # Install projects dependencies
-go install github.com/cosmtrek/air@latest   # Install air, for hot reload
-cp .env.sample .env                         # Setup default `env` vars
-```
-
-### Start
-
-```sh
-air                         # Start the app in dev (watch) mode
-
-go build -o ./bin/main .    # Production build
-./bin/main                  # Strt production build
-```
+Just use the commands in the [Makefile](./Makefile) !

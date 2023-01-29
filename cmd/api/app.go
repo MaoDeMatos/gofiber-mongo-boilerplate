@@ -1,9 +1,9 @@
-package app
+package main
 
 import (
 	"github.com/maodematos/hi-gofiber/config"
-	"github.com/maodematos/hi-gofiber/middleware"
-	"github.com/maodematos/hi-gofiber/router"
+	"github.com/maodematos/hi-gofiber/internal/delayed"
+	"github.com/maodematos/hi-gofiber/internal/middleware"
 	"github.com/maodematos/hi-gofiber/types"
 
 	"github.com/gofiber/fiber/v2"
@@ -15,13 +15,14 @@ import (
 	"github.com/gofiber/helmet/v2"
 )
 
-func setup() *fiber.App {
+func setupServer() *fiber.App {
+	// Create the app
 	app := fiber.New(fiber.Config{
-		Prefork:      config.Current.Multithreading, // Mutlithreading
+		Prefork:      config.Current.MULTITHREADING,
 		ErrorHandler: middleware.CustomErrorHandler,
 	})
 
-	// Order of the middlewares is important !
+	// Add middlewares. Order matters !
 	app.Use(favicon.New())
 	app.Use(logger.New())
 
@@ -35,16 +36,12 @@ func setup() *fiber.App {
 	app.Use(compress.New())
 	// app.Use(cache.New())
 
-	return app
-}
-
-func Start() {
-	app := setup()
-
+	// Routes
 	app.Get("/status", func(ctx *fiber.Ctx) error {
 		return ctx.JSON(types.ApiResponse{"response": "I'm online !"})
 	})
 
+	// Test route
 	app.Get("/error", func(ctx *fiber.Ctx) error {
 		var err *fiber.Error = &fiber.Error{Code: fiber.StatusTeapot, Message: "I'm a teapot !"}
 		return err
@@ -55,7 +52,7 @@ func Start() {
 		ctx.Set("Version", "v1")
 		return ctx.Next()
 	})
-	router.AddDelayedRoutes(v1)
+	delayed.CreateRoutes(v1)
 
-	app.Listen(config.Current.Port)
+	return app
 }

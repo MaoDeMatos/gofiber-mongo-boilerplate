@@ -3,9 +3,9 @@ package middleware
 import (
 	"errors"
 
-	"github.com/maodematos/hi-gofiber/types"
-
 	"github.com/gofiber/fiber/v2"
+
+	"github.com/maodematos/hi-gofiber/types"
 )
 
 func CustomErrorHandler(ctx *fiber.Ctx, err error) error {
