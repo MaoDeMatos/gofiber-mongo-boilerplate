@@ -8,21 +8,29 @@ A simple API built with [`gofiber`](https://gofiber.io/)
 
 # Usage
 
-## Install
+To use hot reload, you'll need to install [`Air`](https://github.com/cosmtrek/air)
 
-To use hot reload, [`Air`](https://github.com/cosmtrek/air) is preconfigured, but you can use anything you want
+## Scripts
 
-Just run `./install.sh` to install dependencies and generate `.env`, or use this commands to do so manually :
+Just run `make` of `make help` to see what commands you can use.
+
+## Manual
+
+You should use the makefile
+
+### Install
 
 ```sh
 go mod download                             # Install projects dependencies
-go install github.com/cosmtrek/air@latest   # For hot reload
+go install github.com/cosmtrek/air@latest   # Install air, for hot reload
 cp .env.sample .env                         # Setup default `env` vars
 ```
 
-## Start
+### Start
 
 ```sh
-go run main.go    # Simply start the app
-air               # Start the app in dev (watch) mode
+air                         # Start the app in dev (watch) mode
+
+go build -o ./bin/main .    # Production build
+./bin/main                  # Strt production build
 ```
