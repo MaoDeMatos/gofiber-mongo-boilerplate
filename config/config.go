@@ -8,13 +8,13 @@ import (
 type CustomConfig struct {
 	PORT           string
 	MULTITHREADING bool
-	MONGODB_URI    string
+	MONGO_URI      string
 }
 
 var Current = CustomConfig{
 	PORT:           "8080",
 	MULTITHREADING: false,
-	MONGODB_URI:    "mongodb://localhost:27017",
+	MONGO_URI:      "",
 }
 
 func Init() {
@@ -29,7 +29,7 @@ func Init() {
 	}
 
 	if mongoUri := os.Getenv("MONGO_URI"); len(mongoUri) > 0 {
-		Current.MONGODB_URI = mongoUri
+		Current.MONGO_URI = mongoUri
 	}
 
 }
