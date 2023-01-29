@@ -1,10 +1,10 @@
 package app
 
 import (
-	"hi-gofiber/config"
-	"hi-gofiber/middleware"
-	"hi-gofiber/router"
-	"hi-gofiber/types"
+	"github.com/maodematos/hi-gofiber/config"
+	"github.com/maodematos/hi-gofiber/middleware"
+	"github.com/maodematos/hi-gofiber/router"
+	"github.com/maodematos/hi-gofiber/types"
 
 	"github.com/gofiber/fiber/v2"
 	// "github.com/gofiber/fiber/v2/middleware/cache"

@@ -2,7 +2,8 @@ package middleware
 
 import (
 	"errors"
-	"hi-gofiber/types"
+
+	"github.com/maodematos/hi-gofiber/types"
 
 	"github.com/gofiber/fiber/v2"
 )

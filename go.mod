@@ -1,4 +1,4 @@
-module hi-gofiber
+module github.com/maodematos/hi-gofiber
 
 go 1.19
 

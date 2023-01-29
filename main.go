@@ -1,8 +1,8 @@
 package main
 
 import (
-	"hi-gofiber/app"
-	"hi-gofiber/config"
+	"github.com/maodematos/hi-gofiber/app"
+	"github.com/maodematos/hi-gofiber/config"
 
 	// Autoload `.env`
 	_ "github.com/joho/godotenv/autoload"

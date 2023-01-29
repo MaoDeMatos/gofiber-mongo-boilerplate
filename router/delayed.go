@@ -2,9 +2,10 @@ package router
 
 import (
 	"fmt"
-	"hi-gofiber/types"
 	"strconv"
 	"time"
+
+	"github.com/maodematos/hi-gofiber/types"
 
 	"github.com/gofiber/fiber/v2"
 )
