@@ -1,5 +1,9 @@
 # A Self-Documenting Makefile: http://marmelab.com/blog/2016/02/29/auto-documented-makefile.html
 
+# Variables
+BUILD_PATH = ./tmp
+MONGO_CONTAINER_NAME = mongodb
+
 .PHONY: install
 install: ## Install dependencies and setup .env file
 	@go mod download
@@ -12,15 +16,23 @@ dev: ## Run in Development mode
 
 .PHONY: build
 build: ## Build for Production
-	go build -o ./tmp/main ./cmd/api
+	go build -o ${BUILD_PATH}/main ./cmd/api
 
 .PHONY: start
 start: ## Run Production build
-	./tmp/main
+	${BUILD_PATH}/main
 
 .PHONY: clear
 clear: ## Clear generated files
-	rm -rf tmp/
+	rm -rf ${BUILD_PATH}
+
+.PHONY: db-start
+db-start: ## Start MongdoDB, in a Docker container
+	docker run --rm -d --name ${MONGO_CONTAINER_NAME} -v mongodb-volume:/data/db -p 27017:27017 mongo
+
+.PHONY: db-stop
+db-stop: ## Stop MongdoDB container
+	docker stop /${MONGO_CONTAINER_NAME}
 
 # Self-Documenting part
 .PHONY: help
