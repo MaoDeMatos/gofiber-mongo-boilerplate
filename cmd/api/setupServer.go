@@ -2,6 +2,7 @@ package main
 
 import (
 	"github.com/maodematos/hi-gofiber/config"
+	"github.com/maodematos/hi-gofiber/internal/book"
 	"github.com/maodematos/hi-gofiber/internal/delayed"
 	"github.com/maodematos/hi-gofiber/internal/middleware"
 	"github.com/maodematos/hi-gofiber/pkg/util"
@@ -53,6 +54,7 @@ func setupServer() *fiber.App {
 		return ctx.Next()
 	})
 	delayed.CreateRoutes(v1)
+	book.CreateRoutes(v1)
 
 	return app
 }
