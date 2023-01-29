@@ -1,3 +1,3 @@
-package types
+package util
 
 type ApiResponse = map[string]interface{}

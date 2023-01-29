@@ -4,7 +4,7 @@ import (
 	"github.com/maodematos/hi-gofiber/config"
 	"github.com/maodematos/hi-gofiber/internal/delayed"
 	"github.com/maodematos/hi-gofiber/internal/middleware"
-	"github.com/maodematos/hi-gofiber/types"
+	"github.com/maodematos/hi-gofiber/pkg/util"
 
 	"github.com/gofiber/fiber/v2"
 	// "github.com/gofiber/fiber/v2/middleware/cache"
@@ -38,7 +38,7 @@ func setupServer() *fiber.App {
 
 	// Routes
 	app.Get("/status", func(ctx *fiber.Ctx) error {
-		return ctx.JSON(types.ApiResponse{"response": "I'm online !"})
+		return ctx.JSON(util.ApiResponse{"response": "I'm online !"})
 	})
 
 	// Test route

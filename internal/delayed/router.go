@@ -5,9 +5,8 @@ import (
 	"strconv"
 	"time"
 
-	"github.com/maodematos/hi-gofiber/types"
-
 	"github.com/gofiber/fiber/v2"
+	"github.com/maodematos/hi-gofiber/pkg/util"
 )
 
 func CreateRoutes(r fiber.Router) {
@@ -17,7 +16,7 @@ func CreateRoutes(r fiber.Router) {
 		delay, _ := strconv.Atoi(ctx.Params("delay"))
 		time.Sleep(time.Duration(delay) * time.Second)
 		return ctx.JSON(
-			types.ApiResponse{"response": fmt.Sprintf("You waited %d seconds.", delay)},
+			util.ApiResponse{"response": fmt.Sprintf("You waited %d seconds.", delay)},
 		)
 	})
 }

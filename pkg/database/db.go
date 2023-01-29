@@ -12,10 +12,6 @@ import (
 
 var MongoClient *mongo.Client
 
-func GetCollection(name string) *mongo.Collection {
-	return MongoClient.Database("test").Collection(name)
-}
-
 func StartMongoDB() {
 	fmt.Println("🔌 Connecting to database at " + config.Current.MONGO_URI + "...")
 
