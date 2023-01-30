@@ -6,8 +6,11 @@ MONGO_CONTAINER_NAME = mongodb
 
 .PHONY: install
 install: ## Install dependencies and setup .env file
+	@echo ⬇️ Download project dependencies
 	@go mod download
+	@echo ⬇️ Download air
 	@go install github.com/cosmtrek/air@latest
+	@echo 📄 Create .env
 	@cp .env.sample .env
 
 .PHONY: dev
@@ -28,7 +31,7 @@ clear: ## Clear generated files
 
 .PHONY: db-start
 db-start: ## Start MongdoDB, in a Docker container
-	docker run --rm -d --name ${MONGO_CONTAINER_NAME} -v mongodb-volume:/data/db -p 27017:27017 mongo
+	docker run --rm -d --name ${MONGO_CONTAINER_NAME} -v mongodb-volume:/data/db -p 27017:27017 mongo:latest
 
 .PHONY: db-stop
 db-stop: ## Stop MongdoDB container
