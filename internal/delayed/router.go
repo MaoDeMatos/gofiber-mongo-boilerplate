@@ -15,6 +15,7 @@ func CreateRoutes(r fiber.Router) {
 	delayed.Get("/:delay<int>?", func(ctx *fiber.Ctx) error {
 		delay, _ := strconv.Atoi(ctx.Params("delay"))
 		time.Sleep(time.Duration(delay) * time.Second)
+
 		return ctx.JSON(
 			util.ApiResponse{"response": fmt.Sprintf("You waited %d seconds.", delay)},
 		)

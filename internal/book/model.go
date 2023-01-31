@@ -3,10 +3,10 @@ package book
 import "github.com/kamva/mgm/v3"
 
 type Book struct {
-	mgm.DefaultModel
-	Title  string `json:"title" bson:"title"`
-	Author string `json:"author" bson:"author"`
-	ISBN   string `json:"isbn" bson:"isbn"`
+	mgm.DefaultModel `bson:",inline"`
+	Title            string `json:"title" bson:"title"`
+	Author           string `json:"author" bson:"author"`
+	ISBN             string `json:"isbn" bson:"isbn"`
 }
 
 // func NewBook(title, author, isbn string) *Book {

@@ -5,7 +5,6 @@ import (
 	"github.com/maodematos/hi-gofiber/pkg/database"
 	"github.com/maodematos/hi-gofiber/pkg/shutdown"
 
-	// Autoload `.env`
 	"github.com/joho/godotenv"
 )
 
