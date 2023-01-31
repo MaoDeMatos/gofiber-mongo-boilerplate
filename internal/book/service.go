@@ -3,6 +3,8 @@ package book
 import (
 	"github.com/gofiber/fiber/v2"
 	"github.com/kamva/mgm/v3"
+	"github.com/maodematos/hi-gofiber/pkg/util"
+
 	"go.mongodb.org/mongo-driver/bson"
 )
 
@@ -30,9 +32,21 @@ func (BookService) CreateOne(ctx *fiber.Ctx) (*Book, error) {
 func (BookService) GetAll(ctx *fiber.Ctx) (*[]Book, error) {
 	books := &[]Book{}
 
-	if err := mgm.Coll(&Book{}).SimpleFind(books, bson.M{}); err != nil {
+	queryOptions, _ := util.GetMongoOptionsFromQuery(ctx)
+
+	if err := mgm.Coll(&Book{}).SimpleFind(books, bson.M{}, queryOptions); err != nil {
 		return nil, err
 	}
 
 	return books, nil
+}
+
+func (BookService) GetOne(ctx *fiber.Ctx, id string) (*Book, error) {
+	book := &Book{}
+
+	if err := mgm.Coll(book).FindByID(id, book); err != nil {
+		return nil, err
+	}
+
+	return book, nil
 }
