@@ -12,6 +12,7 @@ import (
 
 var MongoClient *mongo.Client
 
+// TODO: Fix app not throwing an error when database is not running
 func StartMongoDB() {
 	fmt.Println("🔌 Connecting to database at " + config.Current.MONGO_URI + "...")
 
