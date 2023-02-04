@@ -20,7 +20,7 @@ func setupServer() *fiber.App {
 	// Create the app
 	app := fiber.New(fiber.Config{
 		Prefork:      config.Current.MULTITHREADING,
-		ErrorHandler: middleware.CustomErrorHandler,
+		ErrorHandler: middleware.GeneralErrorHandler,
 	})
 
 	// Add middlewares. Order matters !
@@ -32,7 +32,7 @@ func setupServer() *fiber.App {
 		return ctx.Next()
 	})
 	app.Use(helmet.New())
-	app.Use(cors.New())
+	app.Use(cors.New(cors.Config{ExposeHeaders: "X-Total-Count"}))
 
 	app.Use(compress.New())
 	// app.Use(cache.New())
@@ -44,9 +44,7 @@ func setupServer() *fiber.App {
 
 	// Test route
 	app.Get("/error", func(ctx *fiber.Ctx) error {
-		var err *fiber.Error = &fiber.Error{Code: fiber.StatusTeapot, Message: "I'm a teapot !"}
-		return err
-		// return fiber.ErrBadRequest
+		return fiber.ErrTeapot
 	})
 
 	v1 := app.Group("/v1", func(ctx *fiber.Ctx) error {
