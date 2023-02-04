@@ -13,6 +13,7 @@ import (
 	"github.com/gofiber/fiber/v2/middleware/cors"
 	"github.com/gofiber/fiber/v2/middleware/favicon"
 	"github.com/gofiber/fiber/v2/middleware/logger"
+	"github.com/gofiber/fiber/v2/middleware/recover"
 	"github.com/gofiber/helmet/v2"
 )
 
@@ -37,9 +38,12 @@ func setupServer() *fiber.App {
 	app.Use(compress.New())
 	// app.Use(cache.New())
 
+	// Prevents the server from panicking
+	app.Use(recover.New())
+
 	// Routes
 	app.Get("/status", func(ctx *fiber.Ctx) error {
-		return ctx.JSON(util.ApiResponse{"response": "I'm online !"})
+		return ctx.JSON(util.ApiResponse{"response": "OK"})
 	})
 
 	// Test route
