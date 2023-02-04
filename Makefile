@@ -31,7 +31,7 @@ clear: ## Clear generated files
 
 .PHONY: db-create
 db-create: ## Create MongdoDB Docker container
-	docker run --rm -d --name ${MONGO_CONTAINER_NAME} -v mongodb-volume:/data/db -p 27017:27017 mongo:latest
+	docker run -d --name ${MONGO_CONTAINER_NAME} -v mongodb-volume:/data/db -v mongodb-volume:/data/configdb -p 27017:27017 mongo:latest
 
 .PHONY: db-start
 db-start: ## Start MongdoDB container
