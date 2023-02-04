@@ -16,7 +16,7 @@ func init() {
 	Service = new(BookService)
 }
 
-func (BookService) CreateOne(ctx *fiber.Ctx) (*Book, error) {
+func (BookService) Create(ctx *fiber.Ctx) (*Book, error) {
 	newBook := new(Book)
 	coll := mgm.Coll(newBook)
 
@@ -42,11 +42,31 @@ func (BookService) GetAll(ctx *fiber.Ctx) (*[]Book, error) {
 }
 
 func (BookService) GetOne(ctx *fiber.Ctx, id string) (*Book, error) {
-	book := &Book{}
+	book := new(Book)
 
 	if err := mgm.Coll(book).FindByID(id, book); err != nil {
 		return nil, err
 	}
 
 	return book, nil
+}
+
+func (BookService) PatchOne(ctx *fiber.Ctx, book *Book) (*Book, error) {
+	if err := ctx.BodyParser(book); err != nil {
+		return nil, err
+	}
+
+	if err := mgm.Coll(book).Update(book); err != nil {
+		return nil, err
+	}
+
+	return book, nil
+}
+
+func (BookService) DeleteOne(ctx *fiber.Ctx, book *Book) error {
+	if err := mgm.Coll(book).Delete(book); err != nil {
+		return err
+	}
+
+	return nil
 }
