@@ -7,9 +7,9 @@ MONGO_CONTAINER_NAME = mongodb
 .PHONY: install
 install: ## Install dependencies and setup .env file
 	@echo ⬇️ Download project dependencies
-	@go mod download
+	go mod download
 	@echo ⬇️ Download air
-	@go install github.com/cosmtrek/air@latest
+	go install github.com/cosmtrek/air@latest
 	@echo 📄 Create .env
 	@cp .env.sample .env
 
