@@ -5,6 +5,8 @@ import (
 	"strings"
 )
 
+// TODO?: Use a config manager (Viper)
+
 type CustomConfig struct {
 	PORT           string
 	MULTITHREADING bool

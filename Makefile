@@ -21,8 +21,8 @@ dev: ## Run in Development mode
 build: ## Build for Production
 	go build -o ${BUILD_PATH}/main ./cmd/api
 
-.PHONY: start
-start: ## Run Production build
+.PHONY: run
+run: ## Run Production build
 	${BUILD_PATH}/main
 
 .PHONY: clear
@@ -31,7 +31,7 @@ clear: ## Clear generated files
 
 .PHONY: db-create
 db-create: ## Create MongdoDB Docker container
-	docker run -d --name ${MONGO_CONTAINER_NAME} -v mongodb-volume:/data/db -v mongodb-volume:/data/configdb -p 27017:27017 mongo:latest
+	docker run -d --name ${MONGO_CONTAINER_NAME} -v ${MONGO_CONTAINER_NAME}-volume:/data/db -v ${MONGO_CONTAINER_NAME}-volume:/data/configdb -p 27017:27017 mongo:latest
 
 .PHONY: db-start
 db-start: ## Start MongdoDB container
